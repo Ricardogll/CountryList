@@ -23,6 +23,12 @@ public class CountryListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_list);
 
+        Intent intent = getIntent();
+        int position =-1;
+
+
+
+
         countries=new ArrayList<>();
 
 
@@ -38,6 +44,18 @@ public class CountryListActivity extends AppCompatActivity {
         country_list_view.setAdapter(adapter);
 
         country_list_view.addItemDecoration((new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)));
+
+        if(intent!=null){
+            String country = intent.getStringExtra("country");
+            for (int i =0;i<countries.size();i++){
+                if(countries.get(i).equals(country)){
+                    position=i;
+                    break;
+                }
+            }
+        }
+
+        country_list_view.scrollToPosition(position);
 
         adapter.setOnClickListener(new CountryListAdapter.OnClickListener(){
 
